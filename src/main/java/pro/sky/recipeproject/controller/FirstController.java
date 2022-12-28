@@ -1,4 +1,4 @@
-package pro.sky.recipeproject.controllers;
+package pro.sky.recipeproject.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
