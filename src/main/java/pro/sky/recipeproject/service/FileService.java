@@ -2,6 +2,7 @@ package pro.sky.recipeproject.service;
 
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,7 +30,7 @@ public class FileService {
         }
     }
 
-    private boolean clear(Path path) {
+    public boolean clear(Path path) {
         try {
             Files.deleteIfExists(path);
             Files.createFile(path);
@@ -38,5 +39,9 @@ public class FileService {
             e.getStackTrace();
             return false;
         }
+    }
+
+    public File get(Path path) {
+        return new File(path.toString());
     }
 }
