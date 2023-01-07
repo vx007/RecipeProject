@@ -16,7 +16,7 @@ public class FileService {
             Files.writeString(path, json);
             return true;
         } catch (IOException e) {
-            e.getStackTrace();
+            e.printStackTrace();
             return false;
         }
     }
@@ -25,7 +25,7 @@ public class FileService {
         try {
             return Files.readString(path);
         } catch (IOException e) {
-            e.getStackTrace();
+            e.printStackTrace();
             return null;
         }
     }
@@ -36,7 +36,7 @@ public class FileService {
             Files.createFile(path);
             return true;
         } catch (IOException e) {
-            e.getStackTrace();
+            e.printStackTrace();
             return false;
         }
     }
