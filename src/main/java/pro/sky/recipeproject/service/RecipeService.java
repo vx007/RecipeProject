@@ -5,10 +5,15 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import pro.sky.recipeproject.model.Ingredient;
 import pro.sky.recipeproject.model.Recipe;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.io.Writer;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -72,6 +77,26 @@ public class RecipeService {
 
     public Map<Integer, Recipe> getAllRecipes() {
         return recipes;
+    }
+
+    public Path createReport() throws IOException {
+        Path path = Files.createTempFile(Path.of(dataFilePath), "temp", "report");
+        for (Recipe recipe : recipes.values()) {
+            try (Writer writer = Files.newBufferedWriter(path, StandardOpenOption.APPEND)) {
+                writer.append(recipe.getName() + "\n");
+                writer.append("Время приготовления: " + recipe.getTime() + " минут\n");
+                writer.append("Ингредиенты:\n");
+                for (Ingredient ingredient : recipe.getIngredients()) {
+                    writer.append(ingredient.getName() + " - " + ingredient.getCount() + " " + ingredient.getUnit() + "\n");
+                }
+                writer.append("Инструкция приготовления:\n");
+                for (String step : recipe.getSteps()) {
+                    writer.append(step + "\n");
+                }
+                writer.append("\n");
+            }
+        }
+        return path;
     }
 
     private void saveToFile() {
