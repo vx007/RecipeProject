@@ -10,14 +10,12 @@ import java.nio.file.Path;
 @Service
 public class FileService {
 
-    public boolean save(Path path, String json) {
+    public void save(Path path, String json) {
         try {
             clear(path);
             Files.writeString(path, json);
-            return true;
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException(e);
         }
     }
 
@@ -25,19 +23,16 @@ public class FileService {
         try {
             return Files.readString(path);
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+            throw new RuntimeException(e);
         }
     }
 
-    public boolean clear(Path path) {
+    public void clear(Path path) {
         try {
             Files.deleteIfExists(path);
             Files.createFile(path);
-            return true;
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException(e);
         }
     }
 
