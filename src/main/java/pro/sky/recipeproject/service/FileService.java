@@ -1,6 +1,7 @@
 package pro.sky.recipeproject.service;
 
 import org.springframework.stereotype.Service;
+import pro.sky.recipeproject.model.FileServiceException;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +16,7 @@ public class FileService {
             clear(path);
             Files.writeString(path, json);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileServiceException(e);
         }
     }
 
@@ -23,7 +24,7 @@ public class FileService {
         try {
             return Files.readString(path);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileServiceException(e);
         }
     }
 
@@ -32,7 +33,7 @@ public class FileService {
             Files.deleteIfExists(path);
             Files.createFile(path);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new FileServiceException(e);
         }
     }
 
