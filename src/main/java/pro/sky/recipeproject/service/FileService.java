@@ -16,6 +16,7 @@ public class FileService {
             clear(path);
             Files.writeString(path, json);
         } catch (IOException e) {
+            e.printStackTrace();
             throw new FileServiceException(e);
         }
     }
@@ -24,6 +25,7 @@ public class FileService {
         try {
             return Files.readString(path);
         } catch (IOException e) {
+            e.printStackTrace();
             throw new FileServiceException(e);
         }
     }
@@ -33,6 +35,7 @@ public class FileService {
             Files.deleteIfExists(path);
             Files.createFile(path);
         } catch (IOException e) {
+            e.printStackTrace();
             throw new FileServiceException(e);
         }
     }
